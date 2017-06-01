@@ -59,16 +59,70 @@ class Home extends PureComponent {
 
     this.getFreePlaces = this.getFreePlaces.bind(this);
     this.newCar = this.newCar.bind(this);
+    this.getParkingStatus = this.getParkingStatus.bind(this);
+    this.getBusyPlaces = this.getBusyPlaces.bind(this);
   }
-  componentWillMount(){
-  }
+
   componentDidMount(){
-    console.log('unmount');
     window.getFreePlaces = this.getFreePlaces;
+    window.getBusyPlaces = this.getBusyPlaces;
     window.newCar = this.newCar;
+    window.getParkingStatus = this.getParkingStatus;
   }
-  getFreePlaces () {
-    let freeplacesCount = 0;
+  getParkingStatus(parkingName){
+    return {
+      busyBySedan: this.getBusyPlaces(parkingName, 'Sedan'),
+      busyByTrack: this.getBusyPlaces(parkingName, 'Track'),
+      busyByHandicapped: this.getBusyPlaces(parkingName, 'Disabled'),
+      freeBySedan: this.getFreePlaces(parkingName,'Sedan'),
+      freeByTruck: this.getFreePlaces(parkingName,'Track'),
+      freeByHandicapped: this.getFreePlaces(parkingName,'Disabled'),
+    }
+  }
+  getFreePlaces (parkingName, typeCar) {
+    let freePlacesCount = 0;
+    const parkingNameToLower = parkingName.toString().toLowerCase();
+    const typeCarToLower = typeCar.toString().toLowerCase();
+    //find parking
+    this.state.parkingPlaces.forEach((parkingItem) => {
+          if (parkingNameToLower === parkingItem.name.toString().toLowerCase()) {
+            //find parking place for typeCar
+            parkingItem.byTypePlaces.forEach((typeCarItem) => {
+              //find carType in allowed types for this parking name
+              typeCarItem.typeAllowed.forEach((allowedItem) => {
+                if(typeCarToLower === allowedItem.toString().toLowerCase()){
+                  for(let place of typeCarItem.places) {
+                    if (!place.busy && !place.typeCar ) {
+                      freePlacesCount++;
+                    }
+                  }
+                }
+              })
+            })
+          }
+        }
+    );
+    return freePlacesCount;
+  }
+  getBusyPlaces (parkingName, typeCar) {
+    let busyPlacesCount = 0;
+    const parkingNameToLower = parkingName.toString().toLowerCase();
+    const typeCarToLower = typeCar.toString().toLowerCase();
+    //find parking
+    this.state.parkingPlaces.forEach((parkingItem) => {
+          if (parkingNameToLower === parkingItem.name.toString().toLowerCase()) {
+            //find parking place for typeCar
+            parkingItem.byTypePlaces.forEach((typeCarItem) => {
+              for (let place of typeCarItem.places) {
+                if (!!place.typeCar && place.typeCar.toString().toLowerCase() === typeCarToLower ) {
+                  busyPlacesCount++;
+                }
+              }
+            })
+          }
+        }
+    );
+    return busyPlacesCount;
   }
   newCar (parkingName, typeCar){
     const parkingNameToLower = parkingName.toString().toLowerCase();
