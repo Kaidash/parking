@@ -53,19 +53,55 @@ class Home extends PureComponent {
             }
           ]
         }
-      ]
+      ],
+      counter: true
     };
 
-    this.testFunc = this.testFunc.bind(this);
+    this.getFreePlaces = this.getFreePlaces.bind(this);
+    this.newCar = this.newCar.bind(this);
   }
   componentWillMount(){
   }
   componentDidMount(){
-    window.testMethod = this.testFunc;
+    console.log('unmount');
+    window.getFreePlaces = this.getFreePlaces;
+    window.newCar = this.newCar;
   }
-  testFunc (x) {
-    console.log(x)
+  getFreePlaces () {
+    let freeplacesCount = 0;
   }
+  newCar (parkingName, typeCar){
+    const parkingNameToLower = parkingName.toString().toLowerCase();
+    const typeCarToLower = typeCar.toString().toLowerCase();
+    let parkingStatus = false;
+    //find parking
+    this.state.parkingPlaces.forEach((parkingItem) => {
+          if (parkingNameToLower === parkingItem.name.toString().toLowerCase()) {
+            //find parking place for typeCar
+            parkingItem.byTypePlaces.forEach((typeCarItem) => {
+              //find carType in allowed types for this parking name
+              typeCarItem.typeAllowed.forEach((allowedItem) => {
+                if(typeCarToLower === allowedItem.toString().toLowerCase()){
+                  for(let place of typeCarItem.places) {
+                      if (!place.busy && !place.typeCar && !parkingStatus) {
+                        parkingStatus = true;
+                        place.busy = true;
+                        place.typeCar = typeCar;
+                        break;
+                      }
+                    }
+                }
+              })
+            })
+          }
+        }
+    );
+    if (!parkingStatus) {
+      console.error("There aren't empty seats on the parking")
+    }
+    this.setState({counter: !this.state.counter});
+  }
+
   render() {
     const { animated, viewEntersAnim } = this.state;
     return(
@@ -77,6 +113,7 @@ class Home extends PureComponent {
         })}>
         {this.state.parkingPlaces.map((item, index) =>{
             return <div key={index}>
+              {this.state.test}
                     <Parking name={item.name} typePlaces={item.byTypePlaces} />
                 </div>
         } )}
