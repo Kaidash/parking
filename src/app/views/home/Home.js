@@ -15,39 +15,43 @@ class Home extends PureComponent {
       parkingPlaces:[
         {
           name: 'A',
-          byTrackPlaces:{
-            typeAllowed: ['Track','Disabled','Sedan'],
-            places:{
-              0: {busy: true, typeCar: 'Track'},
-              1: {busy: false, typeCar: undefined},
-              2: {busy: false, typeCar: undefined},
-              3: {busy: false, typeCar: undefined},
-              4: {busy: false, typeCar: undefined},
-              5: {busy: false, typeCar: undefined}
-            }
+          byTypePlaces:[{
+            typeName:'Track',
+            typeAllowed: ['Track', 'Disabled', 'Sedan'],
+            places: [
+              {busy: true, typeCar: 'Track'},
+              {busy: false, typeCar: undefined},
+              {busy: false, typeCar: undefined},
+              {busy: false, typeCar: undefined},
+              {busy: false, typeCar: undefined},
+              {busy: false, typeCar: undefined}
+            ]
           },
-          byDisabledPlaces: {
-            typeAllowed: ['Disabled'],
-            places: {
-              0: {busy: true, typeCar: 'Disabled'},
-              1: {busy: true, typeCar: 'Disabled'},
-              2: {busy: true, typeCar: 'Disabled'},
-              3: {busy: false, typeCar: undefined},
-              4: {busy: false, typeCar: undefined},
-              5: {busy: false, typeCar: undefined}
+            {
+              typeName: 'Disabled',
+              typeAllowed: ['Disabled'],
+              places: [
+                {busy: true, typeCar: 'Disabled'},
+                {busy: true, typeCar: 'Disabled'},
+                {busy: true, typeCar: 'Disabled'},
+                {busy: false, typeCar: undefined},
+                {busy: false, typeCar: undefined},
+                {busy: false, typeCar: undefined}
+              ]
+            },
+            {
+              typeName: 'Sedan',
+              typeAllowed: ['Sedan', 'Disabled'],
+              places: [
+                {busy: true, typeCar: 'Sedan'},
+                {busy: true, typeCar: 'Sedan'},
+                {busy: true, typeCar: 'Sedan'},
+                {busy: false, typeCar: undefined},
+                {busy: false, typeCar: undefined},
+                {busy: false, typeCar: undefined}
+              ]
             }
-          },
-            bySedanPlaces:{
-              typeAllowed: ['Sedan','Disabled'],
-              places:{
-                0: {busy: true, typeCar: 'Sedan'},
-                1: {busy: true, typeCar: 'Sedan'},
-                2: {busy: true, typeCar: 'Sedan'},
-                3: {busy: false, typeCar: undefined},
-                4: {busy: false, typeCar: undefined},
-                5: {busy: false, typeCar: undefined}
-              }
-          }
+          ]
         }
       ]
     };
@@ -74,7 +78,9 @@ class Home extends PureComponent {
           'view-enter': viewEntersAnim
         })}>
         {this.state.parkingPlaces.map((item, index) =>{
-            return <Parking/>
+            return <div key={index}>
+                    <Parking name={item.name} typePlaces={item.byTypePlaces} />
+                </div>
         } )}
       </div>
     );
