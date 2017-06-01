@@ -1,0 +1,11 @@
+.parking-container{
+  padding: 25px;
+  .type-box{
+    display: flex;
+  }
+  .type-style-container{
+    padding: 5px;
+    border: 2px solid darkgreen;
+    margin-right: 8px;
+  }
+}

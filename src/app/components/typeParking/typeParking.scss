@@ -1,0 +1,16 @@
+.type-parking-container{
+  h5{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .type-flex-container{
+    display: flex;
+    flex-wrap:wrap;
+    .place-item{
+      height: 100px;
+      width: 100px;
+      margin: 2px;
+      border: 1px solid slateblue;
+    }
+  }
+}

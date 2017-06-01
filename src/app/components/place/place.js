@@ -11,11 +11,13 @@ export class Place extends React.Component {
     render () {
         return (
             <div className='place-container'>
-                <span>-------------------------</span>
-                <span>{this.props.place.busy}</span>
-                <span>{this.props.index}</span>
-                <span>{this.props.place.typeCar}</span>
-                <span>-------------------------</span>
+                {!!this.props.place.busy ?
+                    <div>
+                        <span>{this.props.place.busy}</span>
+                        <span>{this.props.index}</span>
+                        <span>{this.props.place.typeCar}</span>
+                    </div> : 'free place'  }
+
             </div>
         );
     }

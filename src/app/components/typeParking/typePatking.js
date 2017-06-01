@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import {Place}    from '../../components';
-
+import './typeParking.scss'
 export class TypeParking extends React.Component {
     constructor (props) {
         super(props);
@@ -13,13 +13,15 @@ export class TypeParking extends React.Component {
     render () {
         return (
             <div className='type-parking-container'>
-                <h5>{this.props.typeParkingData.typeName}</h5>
-                { this.props.typeParkingData.places.map((placeItem, placeIndex)=>{
-                    return  <div key={`${this.props.typeParkingData.typeName}_${placeIndex}`}>
-                        <Place place={placeItem} />
-                    </div>
+                <h5>{this.props.typeParkingData.typeName}'s</h5>
+               <div className="type-flex-container">
+                   { this.props.typeParkingData.places.map((placeItem, placeIndex)=>{
+                       return  <div className="place-item" key={`${this.props.typeParkingData.typeName}_${placeIndex}`}>
+                           <Place place={placeItem} />
+                       </div>
 
-                })}
+                   })}
+               </div>
             </div>
         );
     }

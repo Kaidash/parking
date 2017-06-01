@@ -59,11 +59,9 @@ class Home extends PureComponent {
     this.testFunc = this.testFunc.bind(this);
   }
   componentWillMount(){
-    console.log(this)
   }
   componentDidMount(){
     window.testMethod = this.testFunc;
-    console.log(window.testMethod);
   }
   testFunc (x) {
     console.log(x)
