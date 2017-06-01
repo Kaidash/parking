@@ -61,6 +61,7 @@ class Home extends PureComponent {
     this.newCar = this.newCar.bind(this);
     this.getParkingStatus = this.getParkingStatus.bind(this);
     this.getBusyPlaces = this.getBusyPlaces.bind(this);
+    this.randomizer = this.randomizer.bind(this);
   }
 
   componentDidMount(){
@@ -68,6 +69,9 @@ class Home extends PureComponent {
     window.getBusyPlaces = this.getBusyPlaces;
     window.newCar = this.newCar;
     window.getParkingStatus = this.getParkingStatus;
+  }
+  randomizer () {
+
   }
   getParkingStatus(parkingName){
     return {
