@@ -3,7 +3,7 @@ React Bootstrap webpack 2 with Hot Reload STARTER
 
 ## Usage
 
-### Install
+
 
 ```bash
 npm install
@@ -24,6 +24,12 @@ npm run dev
 
 ```bash
 npm run start
+```
+
+### Url
+
+```bash
+http://localhost:3000/
 ```
 
 ### Example methods:
